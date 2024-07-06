@@ -20,8 +20,12 @@ def download_playlist(url: str):
             # move file to folder
             shutil.move(mp3_filename, os.path.join(
                 playlist.title, os.path.basename(mp3_filename)))
-        except:
-            continue
+        except Exception as e:
+            try:
+                with open('error_log.txt', 'a') as f:
+                    f.write(f"{filename.split('/')[-1]}, {playlist.title}, {url}, {e}\n")
+            except:
+                continue
 
 
 def download_single_video(url: str):
